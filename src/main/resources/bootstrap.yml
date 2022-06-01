@@ -1,0 +1,21 @@
+# Basic config client properties
+spring:
+  cloud:
+    config:
+      name: ${USER_APPLICATION_NAME:user-service}
+      discovery:
+        enabled: ${CONFIG_DISCOVERY_ENABLED:true}
+        service-id: ${CONFIG_APPLICATION_NAME:configuration-service}
+      fail-fast: ${CONFIG_FAIL_FAST:false}
+      retry:
+        max-attempts: ${CONFIG_RETRY_ATTEMPTS:100}
+        max-interval: ${CONFIG_RETRY_INTERVAL:5000}
+
+# Basic eureka client properties
+eureka:
+  client:
+    healthcheck:
+      enabled: ${DISCOVERY_HEALTH_CHECK:false}
+    registryFetchIntervalSeconds: ${DISCOVERY_REGISTRY_INTERVAL:5}
+    service-url:
+      defaultZone: ${DISCOVERY_SERVICE_URL:http://localhost:8761}/eureka/

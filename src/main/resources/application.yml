@@ -1,0 +1,48 @@
+# Basic server properties
+server:
+  port: ${USER_PORT:9007}
+
+# Basic spring properties
+spring:
+  # Application
+  application:
+    name: ${USER_APPLICATION_NAME:user-service}
+  # Mail settings
+  mail:
+    host: smtp.gmail.com
+    port: 587
+    properties:
+      mail:
+        smtp:
+          auth: true
+          starttls:
+            enable: true
+  # Database migration
+  jpa:
+    hibernate:
+      ddl-auto: validate
+  liquibase:
+    change-log: classpath:liquibase/db.changelog-master.yml
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://${APP_POSTGRESQL_HOST:localhost}:${APP_POSTGRESQL_PORT:5024}/${APP_POSTGRESQL_NAME:magic_db}?currentSchema=${USER_POSTGRESQL_SCHEMA_NAME:users_schema}
+    username: ${APP_DB_USERNAME:postgres}
+    password: ${APP_DB_PASSWORD:alohomora}
+
+# Basic actuator properties
+management:
+  endpoints:
+    web:
+      exposure:
+        include: ${ACTUATOR_ENDPOINTS:*}
+  endpoint:
+    health:
+      show-details: ${ACTUATOR_HEALTH_SHOW_DETAILS:always}
+
+# Security properties
+app:
+  auth:
+    tokenExpirationMsec: 86400000
+  oauth2:
+    authorizedRedirectUris:
+      - http://localhost:3000
